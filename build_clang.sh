@@ -168,6 +168,10 @@ echo "extracting ..."
 
 bsdtar --strip-components=1 -xf $TARBALL_DIR/$(basename $CLANG_LLVM_PKG) 1>/dev/null
 
+# Patch libcxx so it can be compiled with gcc 13.
+# https://github.com/llvm/llvm-project/issues/62396
+patch -p0 < "$PATCH_DIR/gcc-13-support.patch"
+
 # DISABLE_BOOTSTRAP no longer available
 # ENABLE_FULL_BOOTSTRAP no longer available
 
